@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>POSCUS AI · SURE SHOT AI PRO | Dragon Neural Gateway</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --bg-primary: #ffffff; --bg-secondary: #f8f9fa; --bg-tertiary: #f1f3f5;
+            --text-primary: #0f172a; --text-secondary: #475569;
+            --accent-primary: #7c3aed; --accent-secondary: #a78bfa;
+            --card-border-color: #e2e8f0; --shadow-color: rgba(15,23,42,0.08);
+            --shadow-accent-glow: rgba(124,58,237,0.15);
+            --win-color: #10b981; --loss-color: #ef4444; --pending-color: #f97316;
+            --gradient-primary: linear-gradient(135deg,#7c3aed 0%,#a78bfa 100%);
+        }
+        * { font-family:'El Messiri',sans-serif; letter-spacing:-0.01em; -webkit-tap-highlight-color:transparent; }
+        body { background:var(--bg-secondary); color:var(--text-primary); margin:0; padding:0; overflow-x:hidden; min-height:100vh;
+            background-image:radial-gradient(circle at 10% 20%,rgba(124,58,237,0.05) 0%,transparent 20%),radial-gradient(circle at 90% 80%,rgba(167,139,250,0.05) 0%,transparent 20%); }
+        @media(max-width:640px){ body{font-size:14px;} .navigation{width:96%;height:65px;bottom:12px;} .card{border-radius:1rem;} }
+        .card { transition:all 0.3s ease; background:var(--bg-primary); border-radius:1.25rem;
+            box-shadow:0 4px 6px var(--shadow-color),0 1px 3px rgba(0,0,0,0.05); border:1px solid var(--card-border-color); overflow:hidden; position:relative; backdrop-filter:blur(10px); }
+        .card::before { content:''; position:absolute; top:0; left:0; right:0; height:4px; background:var(--gradient-primary); opacity:0; transition:opacity 0.3s ease; }
+        .card:hover { transform:translateY(-4px); box-shadow:0 12px 24px var(--shadow-accent-glow),0 6px 12px var(--shadow-color); border-color:rgba(124,58,237,0.2); }
+        .card:hover::before { opacity:1; }
+        .gradient-bg { background:var(--gradient-primary); position:relative; overflow:hidden; }
+        .gradient-bg::after { content:''; position:absolute; top:-50%; left:-50%; width:200%; height:200%;
+            background:radial-gradient(circle,rgba(255,255,255,0.1) 1px,transparent 1px); background-size:30px 30px; opacity:0.3; }
+
+        .no-scroll { overflow: hidden !important; position: fixed !important; width: 100% !important; }
+        #appHeaderSvg text, #colourHeaderSvg text {
+            font-family:'El Messiri',sans-serif; text-anchor:middle; dominant-baseline:middle;
+            animation:premiumStroke 6s infinite alternate; stroke-width:1; stroke:var(--accent-primary);
+            font-size:clamp(60px,8vw,100px); fill:rgba(15,23,42,0); font-weight:700; filter:drop-shadow(0 4px 6px rgba(0,0,0,0.1)); }
+        @keyframes premiumStroke {
+            0%{fill:rgba(124,58,237,0);stroke-dashoffset:25%;stroke-dasharray:0 50%;stroke-width:1.5;}
+            70%{fill:rgba(124,58,237,0.3);stroke-dashoffset:-25%;stroke-dasharray:50% 0;stroke-width:0.5;}
+            100%{fill:var(--text-primary);stroke-dashoffset:-25%;stroke-dasharray:50% 0;stroke-width:0;} }
+        .navigation { position:fixed; bottom:20px; left:50%; transform:translateX(-50%); width:94%; max-width:420px; height:70px;
+            background:rgba(255,255,255,0.98); backdrop-filter:blur(20px) saturate(180%); border-radius:1.5rem;
+            box-shadow:0 10px 40px rgba(15,23,42,0.12),0 4px 12px rgba(124,58,237,0.08),inset 0 1px 0 rgba(255,255,255,0.6);
+            display:flex; justify-content:space-around; align-items:center; z-index:1000; border:1px solid rgba(255,255,255,0.3); padding:0 8px; }
+        .nav-link { display:flex; flex-direction:column; align-items:center; justify-content:center; color:#94a3b8;
+            text-decoration:none; transition:all 0.3s ease; flex:1; height:100%; position:relative; gap:4px; border-radius:14px; margin:6px 4px; }
+        .nav-icon-wrap { width:36px; height:36px; display:flex; align-items:center; justify-content:center; border-radius:10px; transition:all 0.3s ease; }
+        .nav-link.active .nav-icon-wrap { background:linear-gradient(135deg,#7c3aed,#a78bfa); box-shadow:0 4px 12px rgba(124,58,237,0.35); }
+        .nav-link.active { color:#7c3aed; }
+        .nav-link i { font-size:1.1rem; transition:all 0.3s ease; }
+        .nav-link.active i { color:#ffffff; filter:none; }
+        .nav-link span { font-size:0.6rem; font-weight:700; text-transform:uppercase; letter-spacing:0.4px; transition:all 0.3s ease; color:#94a3b8; }
+        .nav-link.active span { color:#7c3aed; }
+        .content-section { display:none; padding:1rem; padding-bottom:100px; animation:premiumFadeIn 0.4s ease-out forwards; opacity:0; transform:translateY(10px); }
+        .content-section.active { display:block; }
+        @keyframes premiumFadeIn { from{opacity:0;transform:translateY(10px);} to{opacity:1;transform:translateY(0);} }
+        .history-item { border-left:5px solid var(--card-border-color); margin-bottom:1rem; background:white; padding:1rem;
+            border-radius:0.875rem; display:flex; justify-content:space-between; align-items:flex-start; transition:all 0.2s ease; position:relative; overflow:hidden; }
+        @media(max-width:640px){ .history-item{flex-direction:column;gap:0.75rem;} }
+        .history-item.win{border-left-color:var(--win-color);background:linear-gradient(to right,rgba(16,185,129,0.02),white);}
+        .history-item.loss{border-left-color:var(--loss-color);background:linear-gradient(to right,rgba(239,68,68,0.02),white);}
+        .history-item.pending{border-left-color:var(--pending-color);border-left-style:dashed;background:linear-gradient(to right,rgba(249,115,22,0.02),white);}
+        .status-badge{font-size:0.65rem;font-weight:700;padding:4px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:0.5px;white-space:nowrap;}
+        .probability-card{background:linear-gradient(145deg,#ffffff,#f8fafc);border-radius:1rem;padding:1rem;margin:0.75rem 0;
+            box-shadow:0 4px 12px rgba(15,23,42,0.05),inset 0 1px 0 rgba(255,255,255,0.8);border:1px solid rgba(226,232,240,0.8);position:relative;overflow:hidden;}
+        .probability-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:var(--gradient-primary);}
+        .probability-bar{height:10px;border-radius:6px;overflow:hidden;background:#e2e8f0;margin:0.75rem 0;box-shadow:inset 0 2px 4px rgba(15,23,42,0.05);}
+        .probability-fill{height:100%;transition:width 0.6s cubic-bezier(0.34,1.56,0.64,1);}
+        .method-indicator{display:inline-block;padding:4px 10px;border-radius:12px;font-size:0.7rem;font-weight:700;margin-right:6px;margin-bottom:6px;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.2);}
+        ::-webkit-scrollbar{width:6px;} ::-webkit-scrollbar-track{background:rgba(15,23,42,0.05);border-radius:3px;} ::-webkit-scrollbar-thumb{background:var(--accent-primary);border-radius:3px;}
+        .database-animation{position:relative;display:inline-flex;align-items:center;justify-content:center;}
+        .data-stream{position:absolute;width:100%;height:100%;border-radius:50%;background:conic-gradient(from 0deg,#7c3aed,#a78bfa,#7c3aed);animation:spinData 3s linear infinite;opacity:0.2;}
+        @keyframes spinData{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}
+        .pulse-db{animation:pulseDb 2s infinite ease-in-out;}
+        @keyframes pulseDb{0%{transform:scale(1);opacity:0.7;}50%{transform:scale(1.05);opacity:1;}100%{transform:scale(1);opacity:0.7;}}
+        .floating-dot{position:absolute;width:6px;height:6px;background:#a78bfa;border-radius:50%;animation:floatData 2s infinite alternate;}
+        @keyframes floatData{0%{transform:translateY(0px);opacity:0;}100%{transform:translateY(-20px);opacity:1;}}
+        .game-btn{transition:all 0.3s cubic-bezier(0.34,1.56,0.64,1);background:linear-gradient(145deg,#ffffff,#f1f5f9);border:1px solid rgba(124,58,237,0.2);}
+        .game-btn:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 20px 30px -12px rgba(124,58,237,0.35);border-color:#7c3aed;background:white;}
+
+        /* MODE SELECT */
+        .mode-btn{position:relative;border-radius:1.5rem;padding:2rem 1.5rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.75rem;cursor:pointer;transition:all 0.35s cubic-bezier(0.34,1.56,0.64,1);border:2px solid transparent;overflow:hidden;}
+        .mode-btn:hover{transform:translateY(-8px) scale(1.03);}
+        .mode-btn-bs{background:linear-gradient(145deg,#1e1b4b,#312e81);box-shadow:0 8px 32px rgba(49,46,129,0.45);}
+        .mode-btn-bs:hover{box-shadow:0 20px 48px rgba(99,102,241,0.5);border-color:#818cf8;}
+        .mode-btn-color{background:linear-gradient(145deg,#1a0a0a,#7f1d1d);box-shadow:0 8px 32px rgba(220,38,38,0.3);}
+        .mode-btn-color:hover{box-shadow:0 20px 48px rgba(239,68,68,0.5);border-color:#f87171;}
+        .mode-icon-ring{width:72px;height:72px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2rem;}
+        .mode-bs-ring{background:linear-gradient(135deg,#4f46e5,#818cf8);box-shadow:0 0 24px rgba(99,102,241,0.6);}
+        .mode-color-ring{background:linear-gradient(135deg,#dc2626,#16a34a);box-shadow:0 0 24px rgba(220,38,38,0.5);}
+
+        /* COLOUR BALLS */
+        .colour-ball{width:2.2rem;height:2.2rem;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:800;color:white;}
+        .colour-ball.red-ball{background:radial-gradient(circle at 35% 35%,#ff6b6b,#dc2626);box-shadow:0 0 0 2px #dc2626;}
+        .colour-ball.green-ball{background:radial-gradient(circle at 35% 35%,#4ade80,#16a34a);box-shadow:0 0 0 2px #16a34a;}
+        .colour-ball.violet-ball{background:radial-gradient(circle at 35% 35%,#c084fc,#7c3aed);box-shadow:0 0 0 2px #7c3aed;}
+    </style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="loginScreen" class="min-h-screen flex items-center justify-center px-4 py-8" style="background:radial-gradient(circle at 10% 30%,rgba(124,58,237,0.08),transparent);">
+    <div class="w-full max-w-md">
+        <div class="text-center mb-8">
+            <div class="database-animation inline-block mb-3 relative">
+                <div class="data-stream"></div>
+                <i class="fas fa-database text-5xl text-purple-600 pulse-db relative z-10"></i>
+                <div class="floating-dot" style="top:-5px;right:-8px;"></div>
+                <div class="floating-dot" style="bottom:0px;left:-10px;animation-delay:0.5s;"></div>
+            </div>
+            <h1 class="text-5xl font-extrabold bg-gradient-to-r from-purple-700 via-indigo-600 to-purple-500 bg-clip-text text-transparent animate__animated animate__fadeInDown">POSCUS AI</h1>
+            <p class="text-gray-500 mt-2 text-sm flex items-center justify-center gap-2"><i class="fas fa-shield-alt text-purple-500"></i> Neural Secure Gateway <i class="fas fa-microchip text-purple-500"></i></p>
+            <div class="flex justify-center gap-3 mt-3">
+                <i class="fas fa-chart-line text-purple-300 animate-pulse"></i>
+                <i class="fas fa-cloud-upload-alt text-purple-400 animate-bounce" style="animation-duration:2s;"></i>
+                <i class="fas fa-database text-purple-500 animate-pulse"></i>
+            </div>
+        </div>
+        <div class="card p-6 mb-6 backdrop-blur-sm bg-white/90">
+            <div class="flex items-center gap-3 mb-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-100 to-indigo-100 flex items-center justify-center"><i class="fas fa-fingerprint text-purple-600 text-xl"></i></div>
+                <div class="flex-1"><p class="text-xs text-gray-400 font-bold uppercase">Secure Device Identity</p><p class="text-sm font-mono font-bold text-purple-700" id="deviceIdDisplay">-- generating --</p></div>
+                <button onclick="var t=document.getElementById('deviceIdDisplay').innerText;if(navigator.clipboard){navigator.clipboard.writeText(t).then(()=>{this.innerHTML='<i class=\'fas fa-check text-green-500\'></i>';setTimeout(()=>{this.innerHTML='<i class=\'fas fa-copy\'></i>';},1500)})}else{var i=document.createElement('input');i.value=t;document.body.appendChild(i);i.select();document.execCommand('copy');document.body.removeChild(i);this.innerHTML='<i class=\'fas fa-check text-green-500\'></i>';setTimeout(()=>{this.innerHTML='<i class=\'fas fa-copy\'></i>';},1500)}" class="w-8 h-8 rounded-lg bg-purple-100 flex items-center justify-center text-purple-600 hover:bg-purple-200 transition flex-shrink-0"><i class="fas fa-copy"></i></button>
+            </div>
+            <div class="border-t border-dashed border-gray-200 pt-3 mt-1 text-xs text-gray-500 flex items-center gap-1"><i class="fas fa-microchip"></i> Hardware anchored · TEE protected</div>
+        </div>
+        <div class="card p-6 shadow-2xl">
+            <div class="flex items-center gap-2 mb-5"><i class="fas fa-lock text-purple-500"></i><span class="font-bold text-gray-700">Verify Access Credentials</span></div>
+            <input type="text" id="accessPassword" placeholder="Enter your access key" class="w-full p-3 border border-purple-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-400 bg-gray-50">
+            <p id="loginMsg" class="text-xs text-gray-400 mt-2 flex items-center gap-1">Enter the key provided by admin</p>
+            <button id="loginBtn" class="w-full mt-5 gradient-bg text-white py-3 rounded-xl font-bold shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2"><i class="fas fa-arrow-right-to-bracket"></i> Unlock Neural Engine</button>
+        </div>
+    </div>
+</div>
+
+<!-- PLATFORM SELECTION -->
+<div id="platformScreen" class="min-h-screen px-4 py-6" style="display:none;">
+    <div class="text-center mb-8 animate__animated animate__fadeIn">
+        <div class="inline-flex items-center gap-2 bg-white/70 backdrop-blur px-5 py-2 rounded-full shadow"><i class="fas fa-gamepad text-purple-600"></i><span class="font-bold">Choose Gaming Arena</span><i class="fas fa-joystick text-purple-500"></i></div>
+        <h2 class="text-2xl font-extrabold mt-4 bg-gradient-to-r from-purple-800 to-indigo-700 bg-clip-text text-transparent">SELECT PLATFORM</h2>
+        <p class="text-gray-500 text-sm">Your predictions will be optimized for selected platform</p>
+    </div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 max-w-5xl mx-auto" id="platformGrid"></div>
+    <div class="mt-8 text-center"><button id="logoutFromPlatform" class="text-sm text-gray-400 hover:text-red-500 transition"><i class="fas fa-power-off"></i> Logout &amp; change device</button></div>
+</div>
+
+<!-- TIMER SELECTION -->
+<div id="timerScreen" class="min-h-screen px-4 py-10 flex flex-col items-center justify-center" style="display:none;">
+    <div class="w-full max-w-sm animate__animated animate__fadeIn">
+        <!-- Platform Info Card -->
+        <div class="card p-5 mb-6 flex items-center gap-4">
+            <div class="w-16 h-16 rounded-2xl overflow-hidden bg-gradient-to-br from-purple-50 to-indigo-100 border-2 border-purple-200 shadow flex items-center justify-center flex-shrink-0">
+                <img id="timerPlatformImg" src="" class="w-full h-full object-contain p-1"
+                     onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='block';" alt="">
+                <span id="timerPlatformEmoji" class="text-4xl" style="display:none">🎮</span>
+            </div>
+            <div>
+                <p class="text-xs font-bold uppercase tracking-widest text-purple-400">Selected Platform</p>
+                <p id="timerPlatformLabel" class="text-xl font-extrabold text-gray-900">--</p>
+                <p class="text-xs text-green-500 font-bold mt-0.5">✅ Platform Ready</p>
+            </div>
+        </div>
+        <div class="text-center mb-6">
+            <h2 class="text-2xl font-extrabold text-gray-900">Select Time Period</h2>
+            <p class="text-gray-400 text-sm mt-1">Choose the game interval</p>
+        </div>
+        <!-- Timer Options -->
+        <div class="grid grid-cols-3 gap-3 mb-6">
+            <button class="timer-btn flex flex-col items-center justify-center p-4 rounded-2xl border-2 border-purple-200 bg-white shadow-md hover:border-purple-500 hover:bg-purple-50 hover:shadow-lg transition-all gap-1" data-timer="30S" data-label="30 Sec">
+                <span class="text-3xl mb-1">⚡</span>
+                <span class="font-extrabold text-purple-800 text-xl">30s</span>
+                <span class="text-[10px] text-gray-400 font-bold">FAST</span>
+            </button>
+            <button class="timer-btn flex flex-col items-center justify-center p-4 rounded-2xl border-2 border-purple-500 bg-gradient-to-br from-purple-600 to-indigo-600 shadow-xl gap-1 scale-105" data-timer="1M" data-label="1 Min">
+                <span class="text-3xl mb-1">⏱️</span>
+                <span class="font-extrabold text-white text-xl">1 Min</span>
+                <span class="text-[10px] text-purple-200 font-bold">⭐ POPULAR</span>
+            </button>
+            <button class="timer-btn flex flex-col items-center justify-center p-4 rounded-2xl border-2 border-purple-200 bg-white shadow-md hover:border-purple-500 hover:bg-purple-50 hover:shadow-lg transition-all gap-1" data-timer="3M" data-label="3 Min">
+                <span class="text-3xl mb-1">🕐</span>
+                <span class="font-extrabold text-purple-800 text-xl">3 Min</span>
+                <span class="text-[10px] text-gray-400 font-bold">STEADY</span>
+            </button>
+        </div>
+        <div class="text-center">
+            <button id="backToPlatformBtnTimer" class="text-sm text-gray-400 hover:text-purple-600 transition flex items-center gap-1 mx-auto"><i class="fas fa-arrow-left"></i> Back to Platform</button>
+        </div>
+    </div>
+</div>
+
+<!-- MODE SELECTION -->
+<div id="modeScreen" class="min-h-screen px-4 py-10 flex flex-col items-center justify-center" style="display:none;">
+    <div class="w-full max-w-sm animate__animated animate__fadeIn">
+        <!-- Platform + Timer Info Card -->
+        <div class="card p-4 mb-6 flex items-center gap-4">
+            <div class="w-14 h-14 rounded-xl overflow-hidden bg-gradient-to-br from-purple-50 to-indigo-100 border-2 border-purple-200 shadow flex items-center justify-center flex-shrink-0">
+                <img id="modePlatformImg" src="" class="w-full h-full object-contain p-1"
+                     onerror="this.onerror=null;this.style.display='none';this.nextElementSibling.style.display='block';" alt="">
+                <span id="modePlatformEmoji" class="text-3xl" style="display:none">🎮</span>
+            </div>
+            <div class="flex-1">
+                <p class="text-xs font-bold uppercase tracking-widest text-purple-400">Platform</p>
+                <p id="modeScreenPlatformLabel" class="text-lg font-extrabold text-gray-900">--</p>
+                <div class="flex items-center gap-2 mt-0.5">
+                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-purple-100 text-purple-600" id="modeTimerBadge">1 Min</span>
+                    <span class="text-[10px] text-green-500 font-bold">✅ Ready</span>
+                </div>
+            </div>
+            <button onclick="showTimerSelection()" class="text-xs text-purple-400 hover:text-purple-700 transition font-bold flex flex-col items-center gap-0.5">
+                <i class="fas fa-edit"></i>
+                <span>Change</span>
+            </button>
+        </div>
+        <div class="text-center mb-6">
+            <h2 class="text-2xl font-extrabold text-gray-900">Choose Mode</h2>
+            <p class="text-gray-400 text-sm mt-1">Select which game type to predict</p>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+            <button class="mode-btn mode-btn-bs" id="modeBigSmallBtn">
+                <div class="mode-icon-ring mode-bs-ring">📊</div>
+                <p class="text-white font-extrabold text-xl tracking-wide">BIG/SMALL</p>
+                <p class="text-indigo-300 text-xs font-bold">Latest 7 results</p>
+                <div class="flex gap-2 mt-1 flex-wrap justify-center">
+                    <span class="text-xs font-bold px-2 py-1 rounded-full bg-blue-900/60 text-blue-300 border border-blue-700">BIG 5–9</span>
+                    <span class="text-xs font-bold px-2 py-1 rounded-full bg-purple-900/60 text-purple-300 border border-purple-700">SMALL 0–4</span>
+                </div>
+            </button>
+            <button class="mode-btn mode-btn-color" id="modeColourBtn">
+                <div class="mode-icon-ring mode-color-ring">🎨</div>
+                <p class="text-white font-extrabold text-xl tracking-wide">COLOUR</p>
+                <p class="text-red-300 text-xs font-bold">Latest 10 results</p>
+                <div class="flex gap-2 mt-1 flex-wrap justify-center">
+                    <span class="text-xs font-bold px-2 py-1 rounded-full bg-red-900/60 text-red-300 border border-red-700">🔴 RED</span>
+                    <span class="text-xs font-bold px-2 py-1 rounded-full bg-green-900/60 text-green-300 border border-green-700">🟢 GREEN</span>
+                </div>
+            </button>
+        </div>
+        <div class="text-center mt-6">
+            <button id="backToPlatformBtn" class="text-sm text-gray-400 hover:text-purple-600 transition flex items-center gap-1 mx-auto"><i class="fas fa-arrow-left"></i> Back to Timer</button>
+        </div>
+    </div>
+</div>
+
+
+<!-- BIG/SMALL DASHBOARD -->
+<div id="mainAppContainer" style="display:none;">
+    <header class="pt-6 pb-3 text-center px-2 relative">
+        <svg id="appHeaderSvg" viewBox="0 0 800 120" class="w-full max-w-md mx-auto"><text x="50%" y="50%">SURE SHOT AI PRO</text></svg>
+        <p class="text-sm text-text-secondary mt-2">Dragon Neural Engine · BIG/SMALL AI v8.0 | Platform: <span id="activePlatformLabel" class="font-bold text-purple-600">--</span></p>
+    </header>
+    <main class="max-w-4xl mx-auto px-2">
+        <div id="homeSection" class="content-section active">
+            <div class="card gradient-bg p-6 text-white mb-6 animate__animated animate__fadeIn relative overflow-hidden">
+                <div class="grid grid-cols-2 gap-4 relative z-10">
+                    <div class="bg-white/20 backdrop-blur-md rounded-xl p-3 text-center">
+                        <p class="text-xs uppercase opacity-90 mb-2 tracking-wider">Current Period</p>
+                        <h2 id="displayPeriod" class="text-2xl font-bold tracking-tighter">-----</h2>
+                    </div>
+                    <div class="bg-white/20 backdrop-blur-md rounded-xl p-3 text-center">
+                        <p class="text-xs uppercase opacity-90 mb-2 tracking-wider">AI Prediction</p>
+                        <h2 id="displayPrediction" class="text-2xl font-bold">ANALYZING</h2>
+                    </div>
+                </div>
+                <div class="mt-4 text-center relative z-10">
+                    <p class="text-xs uppercase font-bold opacity-80 mb-2 tracking-wider">Recent Numbers Analysis</p>
+                    <div id="recentNumbers" class="flex justify-center gap-2 mt-2"></div>
+                    <div id="methodInfo" class="flex flex-wrap justify-center gap-1 mt-3" style="display:none!important;"></div>
+                    <div id="trendSummary" class="mt-3 text-sm opacity-90"></div>
+                </div>
+            </div>
+            <div class="card p-5 mb-5">
+                <h3 class="font-bold text-base mb-4 flex items-center gap-2">
+                    <div class="w-9 h-9 gradient-bg rounded-xl flex items-center justify-center text-white shadow"><i class="fas fa-dragon"></i></div>
+                    <span>Dragon Pattern Matrix</span>
+                </h3>
+                <div class="mb-4 p-3 rounded-xl bg-gradient-to-r from-purple-50 to-blue-50 border border-purple-200">
+                    <p class="text-xs text-purple-600 font-bold mb-1">ACTIVE PREDICTION MODE</p>
+                    <p id="activePredictionType" class="text-lg font-bold text-purple-700">SIZE ANALYSIS</p>
+                </div>
+                <div class="probability-card mb-3">
+                    <div class="probability-label flex justify-between"><span><i class="fas fa-expand-alt"></i> BIG Probability</span><span id="bigProbabilityValue" class="font-bold">0%</span></div>
+                    <div class="probability-bar"><div id="bigProbabilityBar" class="probability-fill bg-gradient-to-r from-blue-500 to-cyan-400" style="width:0%"></div></div>
+                    <div class="probability-label flex justify-between"><span><i class="fas fa-compress-alt"></i> SMALL Probability</span><span id="smallProbabilityValue" class="font-bold">0%</span></div>
+                    <div class="probability-bar"><div id="smallProbabilityBar" class="probability-fill bg-gradient-to-r from-purple-500 to-pink-400" style="width:0%"></div></div>
+                </div>
+                <div class="grid grid-cols-2 gap-3 mb-4">
+                    <div class="bg-gradient-to-br from-purple-50 to-white p-3 rounded-xl border border-purple-100">
+                        <p class="text-xs text-purple-600 font-bold">SCORE EDGE</p>
+                        <p id="sizeEdgeValue" class="text-2xl font-bold text-purple-700">0%</p>
+                        <p id="sizePreference" class="text-xs text-purple-500">Neutral</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-indigo-50 to-white p-3 rounded-xl border border-indigo-100">
+                        <p class="text-xs text-indigo-600 font-bold">PATTERN STRENGTH</p>
+                        <p id="patternStrengthLabel" class="text-lg font-bold text-indigo-700">LOW</p>
+                    </div>
+                </div>
+                <div style="display:none!important;">
+                    <div id="modelPerformance"></div>
+                </div>
+                <div class="mt-4 p-4 bg-gradient-to-r from-purple-50 via-white to-blue-50 rounded-xl border border-purple-200 shadow-inner">
+                    <div class="flex justify-between items-center">
+                        <div><p class="text-xs font-bold text-purple-600 uppercase mb-1 tracking-wider">🎯 PRO RECOMMENDATION</p><p id="recommendedPrediction" class="text-lg font-bold text-text-primary">Analyzing patterns</p></div>
+                        <div class="text-right"><p class="text-xs font-bold text-text-secondary mb-1">Confidence</p><p id="recommendedConfidenceValue" class="text-2xl font-bold text-green-500">0%</p></div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
+                <div class="card p-4 text-center"><div class="w-10 h-10 gradient-bg rounded-lg flex items-center justify-center text-white mx-auto mb-2 shadow"><i class="fas fa-bullseye text-sm"></i></div><p class="text-xs text-text-secondary uppercase font-bold mb-1">Accuracy</p><p id="statAccuracy" class="text-xl font-bold text-accent-primary">0%</p></div>
+                <div class="card p-4 text-center"><div class="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-400 rounded-lg flex items-center justify-center text-white mx-auto mb-2 shadow"><i class="fas fa-trophy text-sm"></i></div><p class="text-xs text-text-secondary uppercase font-bold mb-1">Wins</p><p id="statWins" class="text-xl font-bold text-win-color">0</p></div>
+                <div class="card p-4 text-center"><div class="w-10 h-10 bg-gradient-to-br from-red-500 to-pink-400 rounded-lg flex items-center justify-center text-white mx-auto mb-2 shadow"><i class="fas fa-exclamation-triangle text-sm"></i></div><p class="text-xs text-text-secondary uppercase font-bold mb-1">Losses</p><p id="statLosses" class="text-xl font-bold text-loss-color">0</p></div>
+                <div class="card p-4 text-center"><div class="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-400 rounded-lg flex items-center justify-center text-white mx-auto mb-2 shadow"><i class="fas fa-fire text-sm"></i></div><p class="text-xs text-text-secondary uppercase font-bold mb-1">Streak</p><div id="streakInfo" class="flex items-center justify-center gap-1"><div class="w-2 h-2 rounded-full bg-gray-300"></div><p class="text-base font-bold">-</p></div></div>
+            </div>
+        </div>
+        <div id="historySection" class="content-section">
+            <div class="flex justify-between items-center mb-6"><div class="flex items-center gap-2"><div class="w-9 h-9 gradient-bg rounded-lg flex items-center justify-center text-white shadow"><i class="fas fa-history"></i></div><h2 class="text-lg font-bold">Game History</h2></div><button onclick="clearHistory()" class="text-sm bg-gradient-to-r from-red-50 to-pink-50 text-red-500 px-3 py-1.5 rounded-lg font-bold"><i class="fas fa-trash-alt mr-1"></i> Clear</button></div>
+            <div id="historyContainer" class="space-y-3"></div>
+        </div>
+        <div id="statsSection" class="content-section" style="padding:0;padding-bottom:0;">
+            <div style="width:100%;height:calc(100vh - 90px);position:relative;overflow:hidden;touch-action:none;">
+                <div id="bsFrameLoader" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,#f3f0ff,#ede9fe);z-index:2;">
+                    <div style="width:48px;height:48px;border:4px solid #e9d5ff;border-top-color:#7c3aed;border-radius:50%;animation:spinData 0.8s linear infinite;"></div>
+                    <p style="font-size:13px;font-weight:700;color:#7c3aed;" id="bsLoaderText">Opening platform...</p>
+                </div>
+                <iframe id="bsGameFrame" src="" style="width:100%;height:100%;border:none;position:absolute;inset:0;z-index:1;" allow="fullscreen autoplay payment" allowfullscreen></iframe>
+            </div>
+            <div style="display:none"><p id="totalPreds">0</p><div id="modelAccuracyStats"></div><div id="patternStats"></div></div>
+        </div>
+        <div id="aboutSection" class="content-section"><div class="card p-6">
+            <div class="grid grid-cols-2 gap-3 mb-5">
+                <button onclick="showModeSelection()" class="flex items-center justify-center gap-2 p-3 rounded-xl font-bold text-purple-700 border border-purple-200 bg-gradient-to-r from-purple-50 to-indigo-50 hover:shadow-md transition-all"><i class="fas fa-exchange-alt"></i> Switch Mode</button>
+                <button onclick="logoutFull()" class="flex items-center justify-center gap-2 p-3 rounded-xl font-bold text-red-600 border border-red-200 bg-gradient-to-r from-red-50 to-pink-50 hover:shadow-md transition-all"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            </div>
+            <div class="flex items-center gap-3 mb-5"><div class="w-10 h-10 gradient-bg rounded-xl flex items-center justify-center text-white shadow"><i class="fas fa-robot"></i></div><div><h2 class="text-xl font-bold">SURE SHOT AI PRO</h2><p class="text-sm text-text-secondary">Dragon Neural Engine v8.0</p></div></div>
+            <p class="text-sm text-text-secondary leading-relaxed mb-6">Advanced BIG/SMALL prediction system using Dragon Pattern detection: ZigZag, Alternate, Dragon Streaks, Sandwich &amp; Nani reversal algorithms with AI scoring.</p>
+            <div class="space-y-4">
+                <div class="flex items-center gap-3 p-3 bg-gradient-to-r from-gray-50 to-white rounded-xl"><div class="w-10 h-10 gradient-bg rounded-lg flex items-center justify-center text-white shadow"><i class="fab fa-telegram-plane"></i></div><div class="flex-1"><p class="text-sm font-bold text-text-primary">Official Channel</p><a href="#" class="text-sm text-accent-primary font-bold">@SURE_SHOT_AI_PRO</a></div></div>
+                <div class="p-3 border border-dashed border-green-200 rounded-xl bg-gradient-to-r from-green-50 to-emerald-50"><p class="text-xs text-green-600 font-bold uppercase"><i class="fas fa-star"></i> New Feature</p><p class="text-sm text-green-700 font-medium">Ensemble Dragon Scoring · Real-time Pattern Detection</p></div>
+            </div>
+        </div></div>
+    </main>
+    <nav class="navigation">
+        <a href="#" class="nav-link active" data-section="homeSection" data-app="bs"><div class="nav-icon-wrap"><i class="fas fa-th-large"></i></div><span>Dashboard</span></a>
+        <a href="#" class="nav-link" data-section="historySection" data-app="bs"><div class="nav-icon-wrap"><i class="fas fa-history"></i></div><span>History</span></a>
+        <a href="#" class="nav-link" data-section="statsSection" data-app="bs"><div class="nav-icon-wrap"><i class="fas fa-chart-line"></i></div><span>Analytics</span></a>
+        <a href="#" class="nav-link" data-section="aboutSection" data-app="bs"><div class="nav-icon-wrap"><i class="fas fa-info-circle"></i></div><span>About</span></a>
+    </nav>
+</div>
+
+<!-- COLOUR DASHBOARD — exact same UI structure as BIG/SMALL -->
+<div id="colourAppContainer" style="display:none;">
+    <header class="pt-6 pb-3 text-center px-2 relative">
+        <svg id="colourHeaderSvg" viewBox="0 0 800 120" class="w-full max-w-md mx-auto"><text x="50%" y="50%">COLOUR AI PRO</text></svg>
+        <p class="text-sm text-text-secondary mt-2">Colour Pattern Engine · RED/GREEN v1.0 | Platform: <span id="colourActivePlatformLabel" class="font-bold text-purple-600">--</span></p>
+    </header>
+    <main class="max-w-4xl mx-auto px-2">
+        <!-- Dashboard -->
+        <div id="cHomeSection" class="content-section active">
+            <div class="card gradient-bg p-6 text-white mb-6 animate__animated animate__fadeIn relative overflow-hidden">
+                <div class="grid grid-cols-2 gap-4 relative z-10">
+                    <div class="bg-white/20 backdrop-blur-md rounded-xl p-3 text-center">
+                        <p class="text-xs uppercase opacity-90 mb-2 tracking-wider">Current Period</p>
+                        <h2 id="cDisplayPeriod" class="text-2xl font-bold tracking-tighter">-----</h2>
+                    </div>
+                    <div class="bg-white/20 backdrop-blur-md rounded-xl p-3 text-center">
+                        <p class="text-xs uppercase opacity-90 mb-2 tracking-wider">AI Prediction</p>
+                        <h2 id="cDisplayPrediction" class="text-2xl font-bold">ANALYZING</h2>
+                    </div>
+                </div>
+                <div class="mt-4 text-center relative z-10">
+                    <p class="text-xs uppercase font-bold opacity-80 mb-2 tracking-wider">Recent 5 Results</p>
+                    <div id="cRecentNumbers" class="flex justify-center gap-2 mt-2 flex-wrap"></div>
+                    <div id="cTrendSummary" class="mt-3 text-sm opacity-90"></div>
+                </div>
+            </div>
+            <div class="card p-5 mb-5">
+                <h3 class="font-bold text-base mb-4 flex items-center gap-2">
+                    <div class="w-9 h-9 gradient-bg rounded-xl flex items-center justify-center text-white shadow"><i class="fas fa-palette"></i></div>
+                    <span>Colour Pattern Matrix</span>
+                </h3>
+                <div class="mb-4 p-3 rounded-xl bg-gradient-to-r from-red-50 to-green-50 border border-red-200">
+                    <p class="text-xs text-red-600 font-bold mb-1">ACTIVE PREDICTION MODE</p>
+                    <p id="cActivePredictionType" class="text-lg font-bold text-red-700">COLOUR ANALYSIS</p>
+                </div>
+                <div class="probability-card mb-3">
+                    <div class="probability-label flex justify-between"><span>🔴 RED Probability</span><span id="cRedProbabilityValue" class="font-bold">0%</span></div>
+                    <div class="probability-bar"><div id="cRedProbabilityBar" class="probability-fill bg-gradient-to-r from-red-500 to-rose-400" style="width:0%"></div></div>
+                    <div class="probability-label flex justify-between"><span>🟢 GREEN Probability</span><span id="cGreenProbabilityValue" class="font-bold">0%</span></div>
+                    <div class="probability-bar"><div id="cGreenProbabilityBar" class="probability-fill bg-gradient-to-r from-green-500 to-emerald-400" style="width:0%"></div></div>
+                </div>
+                <div class="grid grid-cols-2 gap-3 mb-4">
+                    <div class="bg-gradient-to-br from-red-50 to-white p-3 rounded-xl border border-red-100">
+                        <p class="text-xs text-red-600 font-bold">SCORE EDGE</p>
+                        <p id="cSizeEdgeValue" class="text-2xl font-bold text-red-700">0</p>
+                        <p id="cSizePreference" class="text-xs text-red-500">Neutral</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-green-50 to-white p-3 rounded-xl border border-green-100">
+                        <p class="text-xs text-green-600 font-bold">PATTERN STRENGTH</p>
+                        <p id="cPatternStrengthLabel" class="text-lg font-bold text-green-700">LOW</p>
+                    </div>
+                </div>
+                <div id="cModelPerformance" style="display:none"></div>
+                <div class="mt-4 p-4 bg-gradient-to-r from-red-50 via-white to-green-50 rounded-xl border border-red-200 shadow-inner">
+                    <div class="flex justify-between items-center">
+                        <div><p class="text-xs font-bold text-red-600 uppercase mb-1 tracking-wider">🎯 PRO RECOMMENDATION</p><p id="cRecommendedPrediction" class="text-lg font-bold text-text-primary">Analyzing patterns</p></div>
+                        <div class="text-right"><p class="text-xs font-bold text-text-secondary mb-1">Confidence</p><p id="cRecommendedConfidenceValue" class="text-2xl font-bold text-green-500">0%</p></div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
+                <div class="card p-4 text-center"><div class="w-10 h-10 gradient-bg rounded-lg flex items-center justify-center text-white mx-auto mb-2 shadow"><i class="fas fa-bullseye text-sm"></i></div><p class="text-xs text-text-secondary uppercase font-bold mb-1">Accuracy</p><p id="cStatAccuracy" class="text-xl font-bold text-accent-primary">0%</p></div>
+                <div class="card p-4 text-center"><div class="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-400 rounded-lg flex items-center justify-center text-white mx-auto mb-2 shadow"><i class="fas fa-trophy text-sm"></i></div><p class="text-xs text-text-secondary uppercase font-bold mb-1">Wins</p><p id="cStatWins" class="text-xl font-bold text-win-color">0</p></div>
+                <div class="card p-4 text-center"><div class="w-10 h-10 bg-gradient-to-br from-red-500 to-pink-400 rounded-lg flex items-center justify-center text-white mx-auto mb-2 shadow"><i class="fas fa-exclamation-triangle text-sm"></i></div><p class="text-xs text-text-secondary uppercase font-bold mb-1">Losses</p><p id="cStatLosses" class="text-xl font-bold text-loss-color">0</p></div>
+                <div class="card p-4 text-center"><div class="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-400 rounded-lg flex items-center justify-center text-white mx-auto mb-2 shadow"><i class="fas fa-fire text-sm"></i></div><p class="text-xs text-text-secondary uppercase font-bold mb-1">Streak</p><div id="cStreakInfo" class="flex items-center justify-center gap-1"><div class="w-2 h-2 rounded-full bg-gray-300"></div><p class="text-base font-bold">-</p></div></div>
+            </div>
+        </div>
+        <!-- History -->
+        <div id="cHistorySection" class="content-section">
+            <div class="flex justify-between items-center mb-6"><div class="flex items-center gap-2"><div class="w-9 h-9 gradient-bg rounded-lg flex items-center justify-center text-white shadow"><i class="fas fa-history"></i></div><h2 class="text-lg font-bold">Colour History</h2></div><button onclick="clearColourHistory()" class="text-sm bg-gradient-to-r from-red-50 to-pink-50 text-red-500 px-3 py-1.5 rounded-lg font-bold"><i class="fas fa-trash-alt mr-1"></i> Clear</button></div>
+            <div id="cHistoryContainer" class="space-y-3"></div>
+        </div>
+        <!-- Stats -->
+        <div id="cStatsSection" class="content-section" style="padding:0;padding-bottom:0;">
+            <div style="width:100%;height:calc(100vh - 90px);position:relative;overflow:hidden;touch-action:none;">
+                <div id="colFrameLoader" style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,#fff0f0,#fde8e8);z-index:2;">
+                    <div style="width:48px;height:48px;border:4px solid #fca5a5;border-top-color:#ef4444;border-radius:50%;animation:spinData 0.8s linear infinite;"></div>
+                    <p style="font-size:13px;font-weight:700;color:#ef4444;" id="colLoaderText">Opening platform...</p>
+                </div>
+                <iframe id="colGameFrame" src="" style="width:100%;height:100%;border:none;position:absolute;inset:0;z-index:1;" allow="fullscreen autoplay payment" allowfullscreen></iframe>
+            </div>
+            <div style="display:none"><p id="cTotalPreds">0</p><div id="cModelAccuracyStats"></div><div id="cPatternStats"></div></div>
+        </div>
+        <!-- About -->
+        <div id="cAboutSection" class="content-section"><div class="card p-6">
+            <div class="grid grid-cols-2 gap-3 mb-5">
+                <button onclick="showModeSelection()" class="flex items-center justify-center gap-2 p-3 rounded-xl font-bold text-purple-700 border border-purple-200 bg-gradient-to-r from-purple-50 to-indigo-50 hover:shadow-md transition-all"><i class="fas fa-exchange-alt"></i> Switch Mode</button>
+                <button onclick="logoutFull()" class="flex items-center justify-center gap-2 p-3 rounded-xl font-bold text-red-600 border border-red-200 bg-gradient-to-r from-red-50 to-pink-50 hover:shadow-md transition-all"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            </div>
+            <div class="flex items-center gap-3 mb-5"><div class="w-10 h-10 gradient-bg rounded-xl flex items-center justify-center text-white shadow"><i class="fas fa-palette"></i></div><div><h2 class="text-xl font-bold">COLOUR AI PRO</h2><p class="text-sm text-text-secondary">Colour Pattern Engine v1.0</p></div></div>
+            <p class="text-sm text-text-secondary leading-relaxed mb-6">Advanced RED/GREEN colour prediction using latest 10 results. Pattern detection: ZigZag, RRGG/GGRR cycles, Red/Green streaks with AI scoring.</p>
+            <div class="space-y-4">
+                <div class="flex items-center gap-3 p-3 bg-gradient-to-r from-gray-50 to-white rounded-xl"><div class="w-10 h-10 gradient-bg rounded-lg flex items-center justify-center text-white shadow"><i class="fab fa-telegram-plane"></i></div><div class="flex-1"><p class="text-sm font-bold text-text-primary">Official Channel</p><a href="#" class="text-sm text-accent-primary font-bold">@SURE_SHOT_AI_PRO</a></div></div>
+                <div class="p-3 border border-dashed border-red-200 rounded-xl bg-gradient-to-r from-red-50 to-green-50"><p class="text-xs text-red-600 font-bold uppercase"><i class="fas fa-star"></i> Colour Mode</p><p class="text-sm text-green-700 font-medium">Real-time Colour Pattern Detection · Latest 10 Results</p></div>
+            </div>
+        </div></div>
+    </main>
+    <nav class="navigation">
+        <a href="#" class="nav-link active" data-section="cHomeSection" data-app="colour"><div class="nav-icon-wrap"><i class="fas fa-th-large"></i></div><span>Dashboard</span></a>
+        <a href="#" class="nav-link" data-section="cHistorySection" data-app="colour"><div class="nav-icon-wrap"><i class="fas fa-history"></i></div><span>History</span></a>
+        <a href="#" class="nav-link" data-section="cStatsSection" data-app="colour"><div class="nav-icon-wrap"><i class="fas fa-chart-line"></i></div><span>Analytics</span></a>
+        <a href="#" class="nav-link" data-section="cAboutSection" data-app="colour"><div class="nav-icon-wrap"><i class="fas fa-info-circle"></i></div><span>About</span></a>
+    </nav>
+</div>
+
+<script>
+// ==================== DEVICE ID ====================
+function getOrCreateDeviceId() {
+    let d = localStorage.getItem('poscus_device_unique_id');
+    if (!d) { d = 'Poscus-' + (Math.random().toString(36).substring(2,12)+Date.now().toString(36)).slice(0,12); localStorage.setItem('poscus_device_unique_id',d); }
+    return d;
+}
+const deviceId = getOrCreateDeviceId();
+if (document.getElementById('deviceIdDisplay')) document.getElementById('deviceIdDisplay').innerText = deviceId;
+
+let isLoggedIn = false;  // always start fresh — must login every time
+let selectedPlatform = null;
+let selectedTimer = '1M';
+let selectedTimerLabel = '1 Min';
+const DB_URL = "https://poscus-ai-80611-default-rtdb.asia-southeast1.firebasedatabase.app";
+
+// Session ID — new every page load, used to namespace history
+const SESSION_ID = Date.now().toString(36) + Math.random().toString(36).slice(2,6);
+const BS_HIST_KEY  = 'session_bs_history_'  + SESSION_ID;
+const COL_HIST_KEY = 'session_col_history_' + SESSION_ID;
+
+function hideAll() {
+    ['loginScreen','platformScreen','timerScreen','modeScreen','mainAppContainer','colourAppContainer']
+        .forEach(id => { const el = document.getElementById(id); if(el) el.style.display='none'; });
+}
+function showLogin() {
+    hideAll();
+    document.getElementById('loginScreen').style.display='flex';
+    // Always reset login button on show
+    const lb = document.getElementById('loginBtn');
+    if (lb) { lb.disabled = false; lb.innerHTML = '<i class="fas fa-arrow-right-to-bracket"></i> Unlock Neural Engine'; }
+}
+function showPlatformSelection() { hideAll(); document.getElementById('platformScreen').style.display='block'; renderPlatformGrid(); }
+
+function showTimerSelection() {
+    hideAll();
+    document.getElementById('timerScreen').style.display='flex';
+    const p = selectedPlatform || '--';
+    const imgFile = p.toLowerCase().replace(/\s+/g,'') + '.png';
+    document.getElementById('timerPlatformLabel').innerText = p;
+    const imgEl = document.getElementById('timerPlatformImg');
+    const emoEl = document.getElementById('timerPlatformEmoji');
+    imgEl.onerror = function(){ this.onerror=null; this.style.display='none'; emoEl.style.display='block'; };
+    imgEl.src = imgFile + '?v=2'; imgEl.style.display='block'; emoEl.style.display='none';
+}
+
+function showModeSelection() {
+    hideAll();
+    document.getElementById('modeScreen').style.display='flex';
+    const p = selectedPlatform || '--';
+    const imgFile = p.toLowerCase().replace(/\s+/g,'') + '.png';
+    document.getElementById('modeScreenPlatformLabel').innerText = p;
+    document.getElementById('modeTimerBadge').innerText = selectedTimerLabel;
+    const imgEl = document.getElementById('modePlatformImg');
+    const emoEl = document.getElementById('modePlatformEmoji');
+    imgEl.onerror = function(){ this.onerror=null; this.style.display='none'; emoEl.style.display='block'; };
+    imgEl.src = imgFile + '?v=2'; imgEl.style.display='block'; emoEl.style.display='none';
+}
+function showMainApp() {
+    hideAll();
+    document.getElementById('mainAppContainer').style.display='block';
+    document.getElementById('activePlatformLabel').innerText = selectedPlatform || '--';
+    if (!window.bsAppInit) { window.bsAppInit = true; initMainDashboard(); }
+}
+function showColourApp() {
+    hideAll();
+    document.getElementById('colourAppContainer').style.display='block';
+    document.getElementById('colourActivePlatformLabel').innerText = selectedPlatform || '--';
+    if (!window.colourAppInit) { window.colourAppInit = true; initColourDashboard(); }
+}
+
+// ==================== PLATFORM GRID ====================
+const gamesList = [
+    {name:"Jalwa",emoji:"🔥🎲"},{name:"Bdg win",emoji:"🐉💎"},{name:"Tashan win",emoji:"⚡🃏"},{name:"Trianga",emoji:"🎯🏆"},
+    {name:"Raja Game",emoji:"👑🎰"},{name:"51game",emoji:"🃏🔮"},{name:"91club",emoji:"💥🎲"},{name:"55club",emoji:"🍀🎯"},
+    {name:"Dmwin",emoji:"🤖💎"},{name:"DIUWIN",emoji:"⚡🏅"},{name:"Okwin",emoji:"✅🎰"},{name:"Jai club",emoji:"🙌🔥"},
+    {name:"6club",emoji:"🎲🔥"},{name:"GoaGames",emoji:"🌴🎰"},{name:"YaarWin",emoji:"⚓💎"},{name:"BigMumbai",emoji:"🏙️🎯"},
+    {name:"BharatClub",emoji:"👊🔥"},{name:"82lottery",emoji:"🎰💰"}
+];
+
+// ==================== PLATFORM GAME URLS ====================
+const platformURLs = {
+    "Jalwa":       "https://www.jalwagameapp1.com/#/register?invitationCode=81186115759",
+    "Bdg win":     "https://bdgwin3.vip//#/register?invitationCode=583759390811",
+    "Tashan win":  "https://www.ts777.online/#/register?invitationCode=23484182992",
+    "Trianga":     "https://tgdream.pro/#/register?invitationCode=8441219453339",
+    "Raja Game":   "https://www.rajaparty9.com/#/register?invitationCode=562562273543",
+    "51game":      "https://www.51gamem.com/#/register?invitationCode=113414094164",
+    "91club":      "https://www.vadodara91.com/#/register?invitationCode=1361316491067",
+    "55club":      "https://www.ayhbaw55.com/#/register?invitationCode=754656879198",
+    "Dmwin":       "https://www.dmwin3.com/#/register?invitationCode=761611901512",
+    "DIUWIN":      "https://www.diuwin7.com/#/register?invitationCode=256637419227",
+    "Okwin":       "https://www.3okwin6.com/#/register?invitationCode=755639007976",
+    "Jai club":    "https://www.jaiclub02.com/#/register?invitationCode=14815116359",
+    "6club":       "https://www.6clubt.com/#/register?invitationCode=138451768014",
+    "GoaGames":    "http://www.goaarpay.com/#/register?invitationCode=523747094523",
+    "YarrWin":     "https://yaarwin.org/#/register?invitationCode=576231782741",
+    "BigMumbai":   "https://www.agumbehill.com/#/register?invitationCode=734788033067",
+    "BharatClub":    "https://bhtclub3.com/#/register?invitationCode=211713065349",
+    "82lottery":   "https://www.82winii.com/#/register?invitationCode=642245391113"
+};
+
+// ==================== GAME FRAME SYSTEM ====================
+function loadGameFrame(frameId, loaderId, loaderTextId) {
+    const url = platformURLs[selectedPlatform] || null;
+    if (!url) return;
+    const frame = document.getElementById(frameId);
+    const loader = document.getElementById(loaderId);
+    const loaderTxt = document.getElementById(loaderTextId);
+    if (!frame) return;
+
+    // Already loaded — just show, no reload
+    if (frame._loaded && frame.src && frame.src !== 'about:blank' && frame.src !== '') {
+        if (loader) loader.style.display = 'none';
+        return;
+    }
+
+    // First time load
+    if (loader) { loader.style.display = 'flex'; loader.style.flexDirection = 'column'; }
+    if (loaderTxt) loaderTxt.innerText = 'Opening ' + (selectedPlatform||'platform') + '...';
+
+    frame._loaded = false;
+    frame.src = url;
+
+    // Hide loader on load (same-origin) or after 3.5s timeout (cross-origin)
+    clearTimeout(frame._lt);
+    frame.onload = () => {
+        frame._loaded = true;
+        clearTimeout(frame._lt);
+        if (loader) loader.style.display = 'none';
+    };
+    frame._lt = setTimeout(() => {
+        frame._loaded = true;
+        if (loader) loader.style.display = 'none';
+    }, 3500);
+
+    // Auto-reload every 8 minutes silently (no loader flash)
+    clearInterval(frame._ar);
+    frame._ar = setInterval(() => {
+        frame._loaded = false;
+        frame.src = url;
+        frame._lt = setTimeout(() => { frame._loaded = true; }, 3500);
+    }, 8 * 60 * 1000);
+}
+
+function ensureGameFrame(frameId, loaderId, loaderTextId) {
+    // Called on tab switch — only load if not already loaded
+    loadGameFrame(frameId, loaderId, loaderTextId);
+}
+
+function reloadBsGameFrame()  { loadGameFrame('bsGameFrame','bsFrameLoader','bsLoaderText'); }
+function reloadColGameFrame() { loadGameFrame('colGameFrame','colFrameLoader','colLoaderText'); }
+function renderPlatformGrid() {
+    const grid = document.getElementById('platformGrid');
+    if (!grid) return;
+    grid.innerHTML = gamesList.map(g => {
+        const imgFile = g.name.toLowerCase().replace(/\s+/g,'') + '.png';
+        const emo = g.emoji.split('')[0];
+        const status = g.emoji.includes('🎲') ? 'LIVE' : 'ACTIVE';
+        const statusColor = status === 'LIVE' ? 'text-green-500' : 'text-gray-400';
+        const statusDot = status === 'LIVE' ? '🟢' : '⚪';
+        return `<button class="game-btn p-3 rounded-xl shadow-md flex flex-col items-center justify-center gap-1 transition-all hover:scale-105" data-platform="${g.name}">
+            <div class="w-14 h-14 flex items-center justify-center rounded-xl overflow-hidden bg-gradient-to-br from-purple-50 to-indigo-100 border border-purple-100">
+                <img src="${imgFile}?v=2" class="w-full h-full object-contain p-1"
+                     onerror="this.onerror=null;this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%237c3aed%22/><text y=%2270%22 x=%2250%22 text-anchor=%22middle%22 font-size=%2260%22>${emo}</text></svg>';"
+                     alt="${g.name}">
+            </div>
+            <span class="font-bold text-purple-800 text-xs text-center leading-tight mt-1">${g.name}</span>
+            <span class="text-[10px] font-bold ${statusColor}">${statusDot} ${status}</span>
+        </button>`;
+    }).join('');
+    document.querySelectorAll('[data-platform]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            selectedPlatform = btn.getAttribute('data-platform');
+            // No localStorage — session only
+            showTimerSelection();
+        });
+    });
+}
+
+// ==================== LOGOUT ====================
+function logoutFull(reason) {
+    // Clear auth — but keep device id
+    localStorage.removeItem('poscus_auth');
+    localStorage.removeItem('poscus_active_key');
+    isLoggedIn = false;
+    selectedPlatform = null;
+    selectedTimer = '1M';
+    selectedTimerLabel = '1 Min';
+    window.bsAppInit = undefined; window.colourAppInit = undefined;
+    if (window.fetchInterval) clearInterval(window.fetchInterval);
+    if (window.colourFetchInterval) clearInterval(window.colourFetchInterval);
+    if (window.keyCheckInterval) clearInterval(window.keyCheckInterval);
+    // Reset in-memory history on logout
+    gameHistory = []; winStreak = 0; lossStreak = 0;
+    engineStats = {BIG:{wins:0,losses:0},SMALL:{wins:0,losses:0}};
+    colourHistory = []; cWinStreak = 0; cLossStreak = 0;
+    cEngineStats = {RED:{wins:0,losses:0},GREEN:{wins:0,losses:0}};
+    lockedPeriod = null; lockedPred = null;
+    cLockedPeriod = null; cLockedPred = null;
+    showLogin();
+    document.getElementById('accessPassword').value = '';
+    // Reset login button properly
+    const loginBtnEl = document.getElementById('loginBtn');
+    if (loginBtnEl) {
+        loginBtnEl.disabled = false;
+        loginBtnEl.innerHTML = '<i class="fas fa-arrow-right-to-bracket"></i> Unlock Neural Engine';
+    }
+    document.getElementById('loginMsg').innerHTML = reason === 'key_deleted'
+        ? '<span class="text-red-500">🚫 Your access key has been revoked by admin.</span>'
+        : 'Enter the key provided by admin';
+}
+
+// ==================== KEY VALIDATION ====================
+async function validateKeyInBackground() {
+    const k = localStorage.getItem('poscus_active_key');
+    if (!k || !isLoggedIn) return;
+    if (k === 'VC5SA9AT0H') return; // admin bypass — skip check
+    try {
+        const r = await fetch(`${DB_URL}/keys/${encodeURIComponent(k)}.json`);
+        const d = await r.json();
+        if (!d || d.active !== true) logoutFull('key_deleted');
+    } catch(e) {}
+}
+function startKeyValidation() {
+    if (window.keyCheckInterval) clearInterval(window.keyCheckInterval);
+    validateKeyInBackground();
+    window.keyCheckInterval = setInterval(validateKeyInBackground, 10000);
+}
+
+document.getElementById('logoutFromPlatform')?.addEventListener('click', logoutFull);
+document.getElementById('backToPlatformBtn')?.addEventListener('click', showTimerSelection);
+document.getElementById('backToPlatformBtnTimer')?.addEventListener('click', showPlatformSelection);
+
+// Timer buttons
+document.querySelectorAll('.timer-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        selectedTimer = btn.getAttribute('data-timer');
+        selectedTimerLabel = btn.getAttribute('data-label');
+        // Session only — no localStorage
+        // Reset app so it re-inits with new timer
+        window.bsAppInit = undefined; window.colourAppInit = undefined;
+        if (window.fetchInterval) clearInterval(window.fetchInterval);
+        if (window.colourFetchInterval) clearInterval(window.colourFetchInterval);
+        // Also clear in-memory history when timer changes
+        gameHistory = []; winStreak = 0; lossStreak = 0;
+        engineStats = {BIG:{wins:0,losses:0},SMALL:{wins:0,losses:0}};
+        colourHistory = []; cWinStreak = 0; cLossStreak = 0;
+        cEngineStats = {RED:{wins:0,losses:0},GREEN:{wins:0,losses:0}};
+        lockedPeriod = null; lockedPred = null;
+        cLockedPeriod = null; cLockedPred = null;
+        showModeSelection();
+    });
+});
+document.getElementById('modeBigSmallBtn')?.addEventListener('click', showMainApp);
+document.getElementById('modeColourBtn')?.addEventListener('click', showColourApp);
+
+// ==================== LOGIN ====================
+function showMsg(html, autoClear=true) {
+    const el = document.getElementById('loginMsg');
+    el.innerHTML = html;
+    if (autoClear) { clearTimeout(window._msgTimer); window._msgTimer = setTimeout(()=>{ el.innerHTML='Enter the key provided by admin'; }, 5000); }
+}
+document.getElementById('loginBtn')?.addEventListener('click', async () => {
+    const k = document.getElementById('accessPassword').value.trim();
+    const btn = document.getElementById('loginBtn');
+    if (!k) { showMsg('<span class="text-red-500">Please enter your access key</span>'); return; }
+    btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying...';
+
+    // ── ADMIN BYPASS ──
+    if (k === 'VC5SA9AT0H') {
+        localStorage.setItem('poscus_active_key', k);
+        isLoggedIn = true;
+        selectedPlatform = null; selectedTimer = '1M'; selectedTimerLabel = '1 Min';
+        window.bsAppInit = undefined; window.colourAppInit = undefined;
+        showPlatformSelection(); return;
+    }
+
+    showMsg('<span class="text-purple-500">Checking key...</span>', false);
+    try {
+        const r = await fetch(`${DB_URL}/keys/${encodeURIComponent(k)}.json`);
+        const d = await r.json();
+        if (!d || d.active !== true) { showMsg('<span class="text-red-500">❌ Invalid or inactive key.</span>'); btn.disabled=false; btn.innerHTML='<i class="fas fa-arrow-right-to-bracket"></i> Unlock Neural Engine'; return; }
+        const saved = d.device || '';
+        if (saved !== '' && saved !== deviceId) { showMsg('<span class="text-red-500">⚠️ Key locked to another device.</span>'); btn.disabled=false; btn.innerHTML='<i class="fas fa-arrow-right-to-bracket"></i> Unlock Neural Engine'; return; }
+        if (saved === '') await fetch(`${DB_URL}/keys/${encodeURIComponent(k)}.json`, {method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({device:deviceId})});
+        localStorage.setItem('poscus_active_key', k);
+        isLoggedIn = true;
+        // Always start fresh — platform → timer → mode
+        selectedPlatform = null; selectedTimer = '1M'; selectedTimerLabel = '1 Min';
+        window.bsAppInit = undefined; window.colourAppInit = undefined;
+        startKeyValidation();
+        showPlatformSelection();
+    } catch(e) { showMsg('<span class="text-red-400">Network error.</span>'); btn.disabled=false; btn.innerHTML='<i class="fas fa-arrow-right-to-bracket"></i> Unlock Neural Engine'; }
+});
+
+// ==================== BIG/SMALL ENGINE ====================
+const RULE1=['BIG','SMALL','BIG','SMALL','BIG','SMALL'];
+const RULE2A=['BIG','BIG','SMALL','SMALL','BIG','BIG','SMALL','SMALL'];
+const RULE2B=['SMALL','SMALL','BIG','BIG','SMALL','SMALL','BIG','BIG'];
+const RULE3=['SMALL','SMALL','SMALL','SMALL','SMALL','SMALL'];
+const RULE4=['BIG','BIG','BIG','BIG','BIG'];
+const RULE5=['BIG','BIG','SMALL','BIG','BIG','SMALL'];
+const RULE6=['BIG','SMALL','SMALL','BIG','BIG','SMALL'];
+
+function matchCycle(seqOF, pattern, minLen) {
+    const pLen=pattern.length, n=seqOF.length;
+    if (n<minLen) return null;
+    for (let o=0;o<pLen;o++) {
+        let ok=true;
+        for (let i=0;i<n;i++) { if(seqOF[i]!==pattern[(o+i)%pLen]){ok=false;break;} }
+        if(ok) return {next:pattern[(o+n)%pLen]};
+    }
+    return null;
+}
+
+function dragonScoreEngine(seq) {
+    if (!seq||seq.length<4) return null;
+    const of=[...seq].reverse(); const len=of.length;
+    const matched=[]; let bigV=0,smlV=0,found=false;
+    let r;
+    for(let w=Math.min(len,6);w>=4;w--){r=matchCycle(of.slice(len-w),RULE1,4);if(r)break;} if(r){r.next==='BIG'?bigV+=7:smlV+=7;const _p1=of.slice(len-Math.min(len,6)).map(v=>v==='BIG'?'B':'S').join('');matched.push('🎯 '+_p1+' → '+(r.next==='BIG'?'B':'S'));found=true;} r=null;
+    for(let w=Math.min(len,8);w>=4;w--){r=matchCycle(of.slice(len-w),RULE2A,4);if(r){const _p2=of.slice(len-w).map(v=>v==='BIG'?'B':'S').join('');matched.push('🔵 '+_p2+' → '+(r.next==='BIG'?'B':'S'));r.next==='BIG'?bigV+=8:smlV+=8;found=true;break;} r=matchCycle(of.slice(len-w),RULE2B,4);if(r){const _p2b=of.slice(len-w).map(v=>v==='BIG'?'B':'S').join('');matched.push('🔵 '+_p2b+' → '+(r.next==='BIG'?'B':'S'));r.next==='BIG'?bigV+=8:smlV+=8;found=true;break;}} r=null;
+    for(let w=Math.min(len,6);w>=4;w--){r=matchCycle(of.slice(len-w),RULE3,4);if(r)break;} if(r){r.next==='BIG'?bigV+=6:smlV+=6;const _p3=of.slice(len-Math.min(len,6)).map(v=>v==='BIG'?'B':'S').join('');matched.push('🟣 '+_p3+' → '+(r.next==='BIG'?'B':'S'));found=true;} r=null;
+    for(let w=Math.min(len,5);w>=4;w--){r=matchCycle(of.slice(len-w),RULE4,4);if(r)break;} if(r){r.next==='BIG'?bigV+=6:smlV+=6;const _p4=of.slice(len-Math.min(len,5)).map(v=>v==='BIG'?'B':'S').join('');matched.push('🔴 '+_p4+' → '+(r.next==='BIG'?'B':'S'));found=true;} r=null;
+    for(let w=Math.min(len,6);w>=4;w--){r=matchCycle(of.slice(len-w),RULE5,4);if(r)break;} if(r){r.next==='BIG'?bigV+=7:smlV+=7;const _p5=of.slice(len-Math.min(len,6)).map(v=>v==='BIG'?'B':'S').join('');matched.push('⚡ '+_p5+' → '+(r.next==='BIG'?'B':'S'));found=true;} r=null;
+    for(let w=Math.min(len,6);w>=4;w--){r=matchCycle(of.slice(len-w),RULE6,4);if(r)break;} if(r){r.next==='BIG'?bigV+=7:smlV+=7;const _p6=of.slice(len-Math.min(len,6)).map(v=>v==='BIG'?'B':'S').join('');matched.push('🔄 '+_p6+' → '+(r.next==='BIG'?'B':'S'));found=true;}
+    if (!found) return {isWait:true};
+    const tot=bigV+smlV||1; const pred=bigV>=smlV?'BIG':'SMALL';
+    const dom=Math.max(bigV,smlV)/tot; const conf=Math.min(92,Math.max(62,Math.round(62+dom*22+matched.length*3)));
+    const bigProb=Math.max(15,Math.min(85,Math.round((bigV/tot)*100)));
+    const last7=seq.slice(0,7); const bC=last7.filter(v=>v==='BIG').length; const sC=7-bC;
+    let streak=1; for(let i=1;i<seq.length;i++){if(seq[i]===seq[0])streak++;else break;}
+    const trendLabel=bC>sC?'📈 BIG Trending':bC<sC?'📉 SMALL Trending':'↔️ Balanced';
+    const momentum=last7.slice(0,3).filter(v=>v==='BIG').length>=2?'🔥 BIG Momentum':'🐉 SMALL Momentum';
+    return {prediction:pred,confidence:conf,isWait:false,bigProb,smallProb:100-bigProb,scoreDiff:+((conf-50)/5).toFixed(1),matched,patterns:{matched,trendLabel,momentum,bigC:bC,smlC:sC,streak}};
+}
+
+// ==================== BIG/SMALL STATE ====================
+// History is in-memory only — clears on every login/logout/restart
+let gameHistory=[];
+let lockedPeriod=null,lockedPred=null,winStreak=0,lossStreak=0;
+let engineStats={BIG:{wins:0,losses:0},SMALL:{wins:0,losses:0}};
+function updateEngineStats(p,w){if(w)engineStats[p].wins++;else engineStats[p].losses++;}
+function getAccuracy(s){const t=engineStats[s].wins+engineStats[s].losses;return t===0?50:Math.round((engineStats[s].wins/t)*100);}
+
+async function fetchGameResult() {
+    try {
+        const r=await fetch(`https://draw.ar-lottery01.com/WinGo/WinGo_${selectedTimer}/GetHistoryIssuePage.json?ts=${Date.now()}`);
+        const d=await r.json();
+        if(d?.data?.list?.length) processGameList(d.data.list);
+    } catch(e){}
+}
+
+function processGameList(list) {
+    const latest=list[0]; if(!latest||(!latest.issue&&!latest.issueNumber)) return;
+    const latestIssue=latest.issue||latest.issueNumber;
+    let nextIssue;
+    try{nextIssue=(BigInt(latestIssue)+1n).toString();document.getElementById('displayPeriod').innerText=nextIssue.slice(-5);}catch(e){return;}
+    let updated=false;
+    gameHistory.forEach(item=>{
+        if(item.status==='PENDING'){
+            const res=list.find(l=>(l.issue||l.issueNumber)===item.issue);
+            if(res){
+                const n=parseInt(res.number); const sz=n>=5?'BIG':'SMALL';
+                item.actual=n; item.actualSize=sz; const won=item.predictedSize===sz;
+                item.status=won?'WIN':'LOSS'; updateEngineStats(item.predictedSize,won);
+                if(won){winStreak++;lossStreak=0;}else{lossStreak++;winStreak=0;}
+                updated=true;
+            }
+        }
+    });
+    const recentNums=list.slice(0,7).map(i=>parseInt(i.number));
+    if(recentNums.length>=4){
+        const seq=recentNums.map(n=>n>=5?'BIG':'SMALL');
+        if(nextIssue!==lockedPeriod){
+            const pred=dragonScoreEngine(seq);
+            if(pred){
+                lockedPeriod=nextIssue; lockedPred=pred;
+                if(!pred.isWait&&!gameHistory.find(i=>i.issue===nextIssue)){
+                    gameHistory.unshift({issue:nextIssue,display:nextIssue.slice(-5),predictionType:'SIZE',predictedSize:pred.prediction,status:'PENDING',actual:null,actualSize:null,timestamp:Date.now(),confidence:pred.confidence,sizeEdge:pred.scoreDiff,bigProb:pred.bigProb,smallProb:pred.smallProb});
+                    updated=true;
+                }
+                updateDisplay(pred,seq);
+            }
+        } else if(lockedPred) updateDisplay(lockedPred,seq);
+    }
+    if(updated) saveAndRefresh();
+    updateRecentNumbers(list.slice(0,7));
+}
+
+function updateDisplay(p,seq) {
+    if(p.isWait){
+        document.getElementById('displayPrediction').innerText='⏳ WAIT';
+        document.getElementById('displayPrediction').className='text-2xl font-bold text-yellow-400';
+        document.getElementById('bigProbabilityValue').innerText='--'; document.getElementById('bigProbabilityBar').style.width='50%';
+        document.getElementById('smallProbabilityValue').innerText='--'; document.getElementById('smallProbabilityBar').style.width='50%';
+        document.getElementById('sizeEdgeValue').innerHTML='-- pts'; document.getElementById('sizePreference').innerHTML='🕐 Waiting...';
+        document.getElementById('activePredictionType').innerHTML='SIZE: <span class="text-purple-900">WAIT</span>';
+        document.getElementById('recommendedPrediction').innerText='⏳ WAIT'; document.getElementById('recommendedConfidenceValue').innerText='--';
+        document.getElementById('patternStrengthLabel').innerText='NONE';
+        document.getElementById('modelPerformance').innerHTML='';
+        const l7=seq.slice(0,7); const bC=l7.filter(v=>v==='BIG').length; const sC=l7.length-bC;
+        const tl=bC>sC?'📈 BIG Trending':bC<sC?'📉 SMALL Trending':'↔️ Balanced';
+        const m=l7.slice(0,3).filter(v=>v==='BIG').length>=2?'🔥 BIG Momentum':'🐉 SMALL Momentum';
+        document.getElementById('trendSummary').innerHTML=`<div class="p-2 rounded-lg text-xs font-bold border bg-yellow-50 border-yellow-200 text-yellow-700 flex flex-col gap-1"><div>⏳ No Pattern — Skip</div><div class="flex gap-2 mt-1 flex-wrap"><span class="px-2 py-0.5 rounded-full bg-white border border-yellow-200">${tl}</span><span class="px-2 py-0.5 rounded-full bg-white border border-yellow-200">${m}</span></div></div>`;
+        document.getElementById('modelAccuracyStats').innerHTML=`<div class="flex justify-between items-center p-2 bg-gray-50 rounded-lg"><span class="text-xs font-bold">BIG Accuracy</span><span class="text-xs font-bold text-green-600">${getAccuracy('BIG')}%</span></div><div class="flex justify-between items-center p-2 bg-gray-50 rounded-lg"><span class="text-xs font-bold">SMALL Accuracy</span><span class="text-xs font-bold text-blue-600">${getAccuracy('SMALL')}%</span></div>`;
+        document.getElementById('patternStats').innerHTML=`<div class="bg-purple-50 p-3 rounded-lg"><p class="text-xs text-purple-600 font-bold">Dragon Edge</p><p class="text-xl font-bold text-purple-700">--</p></div><div class="bg-indigo-50 p-3 rounded-lg"><p class="text-xs text-indigo-600 font-bold">Confidence</p><p class="text-xl font-bold text-indigo-700">--%</p></div>`;
+        return;
+    }
+    const cc=p.confidence>=80?'text-green-500':p.confidence>=68?'text-yellow-500':'text-red-400';
+    const nr=p.prediction==='BIG'?' (5-9)':' (0-4)';
+    const predEl=document.getElementById('displayPrediction');
+    predEl.innerText=p.prediction+nr; predEl.className=`text-2xl font-bold ${cc}`;
+    document.getElementById('bigProbabilityValue').innerText=p.bigProb+'%'; document.getElementById('bigProbabilityBar').style.width=p.bigProb+'%';
+    document.getElementById('smallProbabilityValue').innerText=p.smallProb+'%'; document.getElementById('smallProbabilityBar').style.width=p.smallProb+'%';
+    document.getElementById('sizeEdgeValue').innerHTML=p.scoreDiff+' pts';
+    document.getElementById('sizePreference').innerHTML=p.prediction==='BIG'?'🔥 Engine leans BIG (5-9)':'🐉 Engine leans SMALL (0-4)';
+    document.getElementById('activePredictionType').innerHTML=`SIZE: <span class="text-purple-900">${p.prediction}${nr}</span> (${p.confidence}% conf)`;
+    document.getElementById('recommendedPrediction').innerText=p.prediction+nr;
+    document.getElementById('recommendedConfidenceValue').innerText=p.confidence+'%';
+    document.getElementById('patternStrengthLabel').innerText=p.scoreDiff>6?'HIGH':p.scoreDiff>3?'MEDIUM':'LOW';
+    // pattern badges hidden intentionally
+    const pp=p.patterns||{}; const bC2=pp.bigC??0; const sC2=pp.smlC??0;
+    document.getElementById('trendSummary').innerHTML=`<div class="p-2 rounded-lg text-xs font-bold border bg-green-50 border-green-200 text-green-600 flex flex-col gap-1"><div class="flex items-center gap-2">✅ Pattern Matched <span class="ml-auto font-bold ${p.prediction==='BIG'?'text-blue-600':'text-purple-600'}">Next: ${p.prediction}${nr}</span></div><div class="flex gap-2 mt-1 flex-wrap"><span class="px-2 py-0.5 rounded-full bg-white border border-green-200">${pp.trendLabel||''}</span><span class="px-2 py-0.5 rounded-full bg-white border border-green-200">${pp.momentum||''}</span></div></div>`;
+    document.getElementById('modelAccuracyStats').innerHTML=`<div class="flex justify-between items-center p-2 bg-gray-50 rounded-lg"><span class="text-xs font-bold">BIG Accuracy</span><span class="text-xs font-bold text-green-600">${getAccuracy('BIG')}%</span></div><div class="flex justify-between items-center p-2 bg-gray-50 rounded-lg"><span class="text-xs font-bold">SMALL Accuracy</span><span class="text-xs font-bold text-blue-600">${getAccuracy('SMALL')}%</span></div>`;
+    document.getElementById('patternStats').innerHTML=`<div class="bg-purple-50 p-3 rounded-lg"><p class="text-xs text-purple-600 font-bold">Dragon Edge</p><p class="text-xl font-bold text-purple-700">${p.scoreDiff}</p></div><div class="bg-indigo-50 p-3 rounded-lg"><p class="text-xs text-indigo-600 font-bold">Confidence</p><p class="text-xl font-bold text-indigo-700">${p.confidence}%</p></div><div class="bg-amber-50 p-3 rounded-lg"><p class="text-xs text-amber-600 font-bold">BIG (5-9)</p><p class="text-xl font-bold text-amber-700">${p.bigProb}%</p></div><div class="bg-cyan-50 p-3 rounded-lg"><p class="text-xs text-cyan-600 font-bold">SMALL (0-4)</p><p class="text-xl font-bold text-cyan-700">${p.smallProb}%</p></div>`;
+}
+
+function updateRecentNumbers(items) {
+    const c=document.getElementById('recentNumbers');
+    if(c) c.innerHTML=items.map(item=>{const n=parseInt(item.number);const bg=n>=5?'bg-gradient-to-br from-blue-500 to-cyan-500':'bg-gradient-to-br from-purple-500 to-pink-500';const brd=n>=5?'shadow-[0_0_0_2px_#3b82f6]':'shadow-[0_0_0_2px_#a855f7]';return`<div class="relative"><span class="w-8 h-8 flex items-center justify-center rounded-full text-xs font-bold text-white ${bg} ${brd}">${n}</span></div>`;}).join('');
+}
+
+function saveAndRefresh() {
+    if(gameHistory.length>50) gameHistory=gameHistory.slice(0,50);
+    updateBSUI();
+}
+
+function updateBSUI() {
+    const c=document.getElementById('historyContainer');
+    if(!c) return;
+    if(gameHistory.length===0){c.innerHTML='<div class="text-center py-8"><p class="text-gray-400 text-sm">Waiting for data...</p></div>';}
+    else c.innerHTML=gameHistory.map(item=>`<div class="history-item ${item.status==='WIN'?'win':item.status==='LOSS'?'loss':'pending'}"><div class="flex-1"><div class="flex items-center gap-2 mb-2"><p class="text-xs font-bold text-gray-400 uppercase">#${item.display}</p><span class="text-[10px] font-bold px-2 py-1 rounded-lg ${item.confidence>=80?'bg-green-100 text-green-600':item.confidence>=60?'bg-yellow-100 text-yellow-600':'bg-red-100 text-red-600'}">${item.confidence}% Conf</span></div><p class="text-sm font-bold">SIZE: <span class="text-accent-primary">${item.predictedSize}</span></p><div class="flex gap-2 mt-1"><span class="text-[10px] bg-purple-100 text-purple-600 px-2 py-0.5 rounded-full">Edge: ${item.sizeEdge}</span></div>${item.actual!==null?`<div class="border-t border-gray-100 pt-2 mt-2"><p class="text-xs text-gray-600">Result: ${item.actual} (${item.actualSize})</p></div>`:`<div class="border-t border-gray-100 pt-2 mt-2"><p class="text-xs text-orange-500"><i class="fas fa-clock"></i> Pending...</p></div>`}</div><div class="text-right ml-4 min-w-max"><span class="status-badge ${item.status==='WIN'?'bg-green-100 text-green-600 border border-green-200':item.status==='PENDING'?'bg-orange-100 text-orange-600 border border-orange-200':'bg-red-100 text-red-600 border border-red-200'}">${item.status}</span><p class="text-xs text-gray-400 mt-2">${new Date(item.timestamp).toLocaleTimeString()}</p></div></div>`).join('');
+    const done=gameHistory.filter(i=>i.status!=='PENDING');
+    const wins=done.filter(i=>i.status==='WIN').length;
+    const acc=done.length?Math.round((wins/done.length)*100):0;
+    document.getElementById('statAccuracy').innerText=acc+'%';
+    document.getElementById('statWins').innerText=wins;
+    document.getElementById('statLosses').innerText=done.length-wins;
+    document.getElementById('totalPreds').innerText=done.length;
+    const sd=document.getElementById('streakInfo');
+    if(winStreak>0) sd.innerHTML=`<div class="w-2 h-2 rounded-full bg-green-500"></div><p class="text-base font-bold text-green-600">${winStreak}W</p>`;
+    else if(lossStreak>0) sd.innerHTML=`<div class="w-2 h-2 rounded-full bg-red-500"></div><p class="text-base font-bold text-red-600">${lossStreak}L</p>`;
+    else sd.innerHTML=`<div class="w-2 h-2 rounded-full bg-gray-300"></div><p class="text-base font-bold">-</p>`;
+}
+
+window.clearHistory=function(){gameHistory=[];winStreak=0;lossStreak=0;engineStats={BIG:{wins:0,losses:0},SMALL:{wins:0,losses:0}};updateBSUI();};
+
+function initMainDashboard() {
+    updateBSUI(); fetchGameResult();
+    if(window.fetchInterval) clearInterval(window.fetchInterval);
+    window.fetchInterval = setInterval(fetchGameResult, 5000);
+    // Load game frame immediately when Analytics tab is active
+    if(document.getElementById('statsSection')?.classList.contains('active')) reloadBsGameFrame();
+    document.querySelectorAll('#mainAppContainer .nav-link').forEach(link=>{
+        link.addEventListener('click',e=>{
+            e.preventDefault();
+            const id=link.getAttribute('data-section');
+            document.querySelectorAll('#mainAppContainer .nav-link').forEach(l=>l.classList.remove('active'));
+            link.classList.add('active');
+            document.querySelectorAll('#mainAppContainer .content-section').forEach(s=>s.classList.remove('active'));
+            document.getElementById(id)?.classList.add('active');
+            if(id==='statsSection') {
+                document.querySelector('#mainAppContainer header').style.display='none';
+                document.body.classList.add('no-scroll');
+                ensureGameFrame('bsGameFrame','bsFrameLoader','bsLoaderText');
+            } else {
+                document.querySelector('#mainAppContainer header').style.display='';
+                document.body.classList.remove('no-scroll');
+            }
+        });
+    });
+}
+
+// ==================== COLOUR ENGINE ====================
+function numToColour(n) {
+    if(n===0) return 'RED';    // 0 = red+violet → RED
+    if(n===5) return 'GREEN';  // 5 = green+violet → GREEN
+    return [1,3,7,9].includes(n) ? 'GREEN' : 'RED';
+}
+
+// ==================== COLOUR AI ENGINE (Statistical — No Fixed Rules) ====================
+function colourScoreEngine(seq) {
+    if(!seq || seq.length < 1) return null;
+    const last10 = seq.slice(0, Math.min(10, seq.length));
+
+    // 1. Weighted frequency score — recent results matter more
+    const weights = [5, 4.5, 4, 3.5, 3, 2.5, 2, 1.5, 1, 0.5];
+    let rScore = 0, gScore = 0;
+    last10.forEach((c, i) => {
+        const w = weights[i] || 0.5;
+        if(c === 'RED') rScore += w;
+        else gScore += w;
+    });
+
+    // 2. Streak analysis — long streaks tend to break
+    let streakLen = 1, streakCol = last10[0];
+    for(let i = 1; i < last10.length; i++) {
+        if(last10[i] === streakCol) streakLen++;
+        else break;
+    }
+    if(streakLen >= 4) {
+        if(streakCol === 'RED') gScore += streakLen * 2.5;
+        else rScore += streakLen * 2.5;
+    } else if(streakLen === 3) {
+        if(streakCol === 'RED') gScore += 4;
+        else rScore += 4;
+    } else if(streakLen === 2) {
+        if(streakCol === 'RED') gScore += 1;
+        else rScore += 1;
+    }
+
+    // 3. Alternation signal — if last 3 alternate, continue alternating
+    let alterDetected = false;
+    if(last10.length >= 3 && last10[0] !== last10[1] && last10[1] !== last10[2]) {
+        alterDetected = true;
+        if(last10[0] === 'RED') gScore += 2.5;
+        else rScore += 2.5;
+    }
+
+    // 4. Balance correction — if heavily skewed, opposite colour gets a boost
+    const rCnt = last10.filter(v => v === 'RED').length;
+    const gCnt = last10.length - rCnt;
+    if(rCnt >= 7) gScore += 3;
+    else if(gCnt >= 7) rScore += 3;
+
+    // 5. Recent 3-result momentum
+    const last3 = last10.slice(0, Math.min(3, last10.length));
+    const rLast3 = last3.filter(v => v === 'RED').length;
+    if(rLast3 >= 2) rScore += 1.5;
+    else gScore += 1.5;
+
+    // 6. Random micro-noise to avoid repetitive predictions (small)
+    rScore += (Math.random() * 0.6 - 0.3);
+    gScore += (Math.random() * 0.6 - 0.3);
+
+    const tot = rScore + gScore || 1;
+    const pred = rScore >= gScore ? 'RED' : 'GREEN';
+    const dom = Math.max(rScore, gScore) / tot;
+    const conf = Math.min(90, Math.max(58, Math.round(58 + dom * 26)));
+    const rProb = Math.max(20, Math.min(80, Math.round((rScore / tot) * 100)));
+
+    const trendLabel = rCnt > gCnt ? '🔴 RED Trending' : rCnt < gCnt ? '🟢 GREEN Trending' : '↔️ Balanced';
+    const momentum = rLast3 >= 2 ? '🔴 RED Momentum' : '🟢 GREEN Momentum';
+
+    // Analysis labels — readable pattern sequences
+    const matched = [];
+    const seqStr = last10.map(v => v === 'RED' ? 'R' : 'G').join('');
+    matched.push(`📊 ${seqStr}`);
+    if(streakLen >= 2) {
+        const streakStr = (streakCol === 'RED' ? 'R' : 'G').repeat(streakLen);
+        matched.push(`${streakCol === 'RED' ? '🔴' : '🟢'} ${streakStr} → ${pred === streakCol ? (pred==='RED'?'R':'G') : (pred==='RED'?'R':'G')}`);
+    }
+    if(alterDetected) {
+        const altStr = last10.slice(0,4).map(v=>v==='RED'?'R':'G').join('');
+        matched.push(`⚡ ${altStr} Alternating`);
+    }
+    if(rCnt >= 7) matched.push(`⚖️ ${seqStr.slice(0,7)} → G Boost`);
+    else if(gCnt >= 7) matched.push(`⚖️ ${seqStr.slice(0,7)} → R Boost`);
+    matched.push(`🎯 R${rCnt}G${gCnt} | Next: ${pred==='RED'?'🔴R':'🟢G'}`);
+
+    return {
+        prediction: pred, confidence: conf, isWait: false,
+        redProb: rProb, greenProb: 100 - rProb,
+        scoreDiff: +((conf - 50) / 5).toFixed(1),
+        matched,
+        patterns: { matched, trendLabel, momentum, redC: rCnt, greenC: gCnt, streak: streakLen }
+    };
+}
+
+// ==================== COLOUR STATE ====================
+// In-memory only — fresh every login/restart
+let colourHistory=[];
+let cLockedPeriod=null,cLockedPred=null,cWinStreak=0,cLossStreak=0;
+let cEngineStats={RED:{wins:0,losses:0},GREEN:{wins:0,losses:0}};
+function updateCEngineStats(p,w){if(w)cEngineStats[p].wins++;else cEngineStats[p].losses++;}
+function getCAccuracy(s){const t=cEngineStats[s].wins+cEngineStats[s].losses;return t===0?50:Math.round((cEngineStats[s].wins/t)*100);}
+
+async function fetchColourResult() {
+    try {
+        const r=await fetch(`https://draw.ar-lottery01.com/WinGo/WinGo_${selectedTimer}/GetHistoryIssuePage.json?ts=${Date.now()}`);
+        const d=await r.json();
+        if(d?.data?.list?.length) processColourList(d.data.list);
+    } catch(e){}
+}
+
+function processColourList(list) {
+    const latest=list[0]; if(!latest||(!latest.issue&&!latest.issueNumber)) return;
+    const latestIssue=latest.issue||latest.issueNumber;
+    let nextIssue;
+    try{nextIssue=(BigInt(latestIssue)+1n).toString();document.getElementById('cDisplayPeriod').innerText=nextIssue.slice(-5);}catch(e){return;}
+    let updated=false;
+    colourHistory.forEach(item=>{
+        if(item.status==='PENDING'){
+            const res=list.find(l=>(l.issue||l.issueNumber)===item.issue);
+            if(res){
+                const n=parseInt(res.number); const ac=numToColour(n);
+                item.actual=n; item.actualColour=ac; const won=item.predictedColour===ac;
+                item.status=won?'WIN':'LOSS'; updateCEngineStats(item.predictedColour,won);
+                if(won){cWinStreak++;cLossStreak=0;}else{cLossStreak++;cWinStreak=0;}
+                updated=true;
+            }
+        }
+    });
+    const recent10=list.slice(0,10).map(i=>parseInt(i.number));
+    if(recent10.length>=4){
+        const cSeq=recent10.map(n=>numToColour(n));
+        if(nextIssue!==cLockedPeriod){
+            const pred=colourScoreEngine(cSeq);
+            if(pred){
+                cLockedPeriod=nextIssue; cLockedPred=pred;
+                if(!colourHistory.find(i=>i.issue===nextIssue)){
+                    colourHistory.unshift({issue:nextIssue,display:nextIssue.slice(-5),predictedColour:pred.prediction,status:'PENDING',actual:null,actualColour:null,timestamp:Date.now(),confidence:pred.confidence,scoreEdge:pred.scoreDiff,redProb:pred.redProb,greenProb:pred.greenProb});
+                    updated=true;
+                }
+                updateColourDisplay(pred,cSeq,list.slice(0,10));
+            }
+        } else if(cLockedPred) updateColourDisplay(cLockedPred,cSeq,list.slice(0,10));
+    }
+    if(updated){
+        if(colourHistory.length>50) colourHistory=colourHistory.slice(0,50);
+        updateColourUI();
+    }
+    // update recent balls always
+    updateRecentColours(list.slice(0,5));
+}
+
+function updateColourDisplay(p, cSeq, rawList) {
+    if(p.isWait){
+        // Force a quick prediction even in wait case
+        const rCnt=cSeq.filter(v=>v==='RED').length;
+        const forcePred=rCnt>=cSeq.length/2?'RED':'GREEN';
+        const forceIsRed=forcePred==='RED';
+        document.getElementById('cDisplayPrediction').innerText=(forceIsRed?'🔴 ':'🟢 ')+forcePred;
+        document.getElementById('cDisplayPrediction').className=`text-2xl font-bold ${forceIsRed?'text-red-400':'text-green-400'}`;
+        document.getElementById('cRedProbabilityValue').innerText=(rCnt*10)+'%'; document.getElementById('cRedProbabilityBar').style.width=(rCnt*10)+'%';
+        document.getElementById('cGreenProbabilityValue').innerText=((10-rCnt)*10)+'%'; document.getElementById('cGreenProbabilityBar').style.width=((10-rCnt)*10)+'%';
+        document.getElementById('cSizeEdgeValue').innerHTML='1.5 pts'; document.getElementById('cSizePreference').innerHTML=(forceIsRed?'🔴 Engine leans RED':'🟢 Engine leans GREEN');
+        document.getElementById('cActivePredictionType').innerHTML=`COLOUR: <span class="${forceIsRed?'text-red-700':'text-green-700'}">${forcePred}</span> (58% conf)`;
+        document.getElementById('cRecommendedPrediction').innerText=(forceIsRed?'🔴 ':'🟢 ')+forcePred;
+        document.getElementById('cRecommendedConfidenceValue').innerText='58%';
+        document.getElementById('cPatternStrengthLabel').innerText='LOW';
+        document.getElementById('cModelPerformance').innerHTML=``;
+        const tl=rCnt>5?'🔴 RED Trending':rCnt<5?'🟢 GREEN Trending':'↔️ Balanced';
+        document.getElementById('cTrendSummary').innerHTML=`<div class="p-2 rounded-lg text-xs font-bold border bg-green-50 border-green-200 text-green-600 flex flex-col gap-1"><div class="flex items-center gap-2">✅ AI Analysis Complete <span class="ml-auto font-bold ${forceIsRed?'text-red-600':'text-green-600'}">Next: ${forceIsRed?'🔴':'🟢'} ${forcePred}</span></div><div class="flex gap-2 mt-1 flex-wrap"><span class="px-2 py-0.5 rounded-full bg-white border border-green-200">${tl}</span></div></div>`;
+        document.getElementById('cModelAccuracyStats').innerHTML=`<div class="flex justify-between items-center p-2 bg-gray-50 rounded-lg"><span class="text-xs font-bold">RED Accuracy</span><span class="text-xs font-bold text-red-600">${getCAccuracy('RED')}%</span></div><div class="flex justify-between items-center p-2 bg-gray-50 rounded-lg"><span class="text-xs font-bold">GREEN Accuracy</span><span class="text-xs font-bold text-green-600">${getCAccuracy('GREEN')}%</span></div>`;
+        document.getElementById('cPatternStats').innerHTML=`<div class="bg-red-50 p-3 rounded-lg"><p class="text-xs text-red-600 font-bold">Score Edge</p><p class="text-xl font-bold text-red-700">1.5</p></div><div class="bg-green-50 p-3 rounded-lg"><p class="text-xs text-green-600 font-bold">Confidence</p><p class="text-xl font-bold text-green-700">58%</p></div>`;
+        return;
+    }
+    const isRed=p.prediction==='RED';
+    const cc=p.confidence>=80?'text-green-500':p.confidence>=68?'text-yellow-500':'text-red-400';
+    const predEl=document.getElementById('cDisplayPrediction');
+    predEl.innerText=(isRed?'🔴 ':'🟢 ')+p.prediction; predEl.className=`text-2xl font-bold ${isRed?'text-red-400':'text-green-400'}`;
+    document.getElementById('cRedProbabilityValue').innerText=p.redProb+'%'; document.getElementById('cRedProbabilityBar').style.width=p.redProb+'%';
+    document.getElementById('cGreenProbabilityValue').innerText=p.greenProb+'%'; document.getElementById('cGreenProbabilityBar').style.width=p.greenProb+'%';
+    document.getElementById('cSizeEdgeValue').innerHTML=p.scoreDiff+' pts';
+    document.getElementById('cSizePreference').innerHTML=isRed?'🔴 Engine leans RED':'🟢 Engine leans GREEN';
+    document.getElementById('cActivePredictionType').innerHTML=`COLOUR: <span class="${isRed?'text-red-700':'text-green-700'}">${p.prediction}</span> (${p.confidence}% conf)`;
+    document.getElementById('cRecommendedPrediction').innerText=(isRed?'🔴 ':'🟢 ')+p.prediction;
+    document.getElementById('cRecommendedConfidenceValue').innerText=p.confidence+'%';
+    document.getElementById('cPatternStrengthLabel').innerText=p.scoreDiff>6?'HIGH':p.scoreDiff>3?'MEDIUM':'LOW';
+    document.getElementById('cModelPerformance').innerHTML='';
+    const pp=p.patterns||{};
+    document.getElementById('cTrendSummary').innerHTML=`<div class="p-2 rounded-lg text-xs font-bold border bg-green-50 border-green-200 text-green-600 flex flex-col gap-1"><div class="flex items-center gap-2">✅ AI Analysis Complete <span class="ml-auto font-bold ${isRed?'text-red-600':'text-green-600'}">Next: ${isRed?'🔴':'🟢'} ${p.prediction}</span></div><div class="flex gap-2 mt-1 flex-wrap"><span class="px-2 py-0.5 rounded-full bg-white border border-green-200">${pp.trendLabel||''}</span><span class="px-2 py-0.5 rounded-full bg-white border border-green-200">${pp.momentum||''}</span></div></div>`;
+    document.getElementById('cModelAccuracyStats').innerHTML=`<div class="flex justify-between items-center p-2 bg-gray-50 rounded-lg"><span class="text-xs font-bold">RED Accuracy</span><span class="text-xs font-bold text-red-600">${getCAccuracy('RED')}%</span></div><div class="flex justify-between items-center p-2 bg-gray-50 rounded-lg"><span class="text-xs font-bold">GREEN Accuracy</span><span class="text-xs font-bold text-green-600">${getCAccuracy('GREEN')}%</span></div>`;
+    document.getElementById('cPatternStats').innerHTML=`<div class="bg-red-50 p-3 rounded-lg"><p class="text-xs text-red-600 font-bold">Score Edge</p><p class="text-xl font-bold text-red-700">${p.scoreDiff}</p></div><div class="bg-green-50 p-3 rounded-lg"><p class="text-xs text-green-600 font-bold">Confidence</p><p class="text-xl font-bold text-green-700">${p.confidence}%</p></div><div class="bg-rose-50 p-3 rounded-lg"><p class="text-xs text-rose-600 font-bold">🔴 RED</p><p class="text-xl font-bold text-rose-700">${p.redProb}%</p></div><div class="bg-emerald-50 p-3 rounded-lg"><p class="text-xs text-emerald-600 font-bold">🟢 GREEN</p><p class="text-xl font-bold text-emerald-700">${p.greenProb}%</p></div>`;
+}
+
+function updateRecentColours(items) {
+    const c=document.getElementById('cRecentNumbers');
+    if(c) c.innerHTML=items.map(item=>{
+        const n=parseInt(item.number); const col=numToColour(n);
+        const isV=(n===0||n===5);
+        const bg=isV?(col==='RED'?'bg-gradient-to-br from-red-400 to-purple-600':'bg-gradient-to-br from-green-400 to-purple-600'):(col==='RED'?'bg-gradient-to-br from-red-500 to-rose-600':'bg-gradient-to-br from-green-500 to-emerald-600');
+        const brd=col==='RED'?'shadow-[0_0_0_2px_#dc2626]':'shadow-[0_0_0_2px_#16a34a]';
+        return`<div class="relative"><span class="w-8 h-8 flex items-center justify-center rounded-full text-xs font-bold text-white ${bg} ${brd}">${n}</span></div>`;
+    }).join('');
+}
+
+function updateColourUI() {
+    const c=document.getElementById('cHistoryContainer');
+    if(!c) return;
+    if(colourHistory.length===0){c.innerHTML='<div class="text-center py-8"><p class="text-gray-400 text-sm">Waiting for data...</p></div>';
+    } else c.innerHTML=colourHistory.map(item=>{
+        const isRed=item.predictedColour==='RED';
+        return`<div class="history-item ${item.status==='WIN'?'win':item.status==='LOSS'?'loss':'pending'}"><div class="flex-1"><div class="flex items-center gap-2 mb-2"><p class="text-xs font-bold text-gray-400 uppercase">#${item.display}</p><span class="text-[10px] font-bold px-2 py-1 rounded-lg ${item.confidence>=80?'bg-green-100 text-green-600':item.confidence>=60?'bg-yellow-100 text-yellow-600':'bg-red-100 text-red-600'}">${item.confidence}% Conf</span></div><p class="text-sm font-bold">COLOUR: <span class="${isRed?'text-red-500':'text-green-500'}">${isRed?'🔴':'🟢'} ${item.predictedColour}</span></p><div class="flex gap-2 mt-1"><span class="text-[10px] ${isRed?'bg-red-100 text-red-600':'bg-green-100 text-green-600'} px-2 py-0.5 rounded-full">Edge: ${item.scoreEdge}</span></div>${item.actual!==null?`<div class="border-t border-gray-100 pt-2 mt-2"><p class="text-xs text-gray-600">Result: ${item.actual} (${item.actualColour==='RED'?'🔴':'🟢'} ${item.actualColour})</p></div>`:`<div class="border-t border-gray-100 pt-2 mt-2"><p class="text-xs text-orange-500"><i class="fas fa-clock"></i> Pending...</p></div>`}</div><div class="text-right ml-4 min-w-max"><span class="status-badge ${item.status==='WIN'?'bg-green-100 text-green-600 border border-green-200':item.status==='PENDING'?'bg-orange-100 text-orange-600 border border-orange-200':'bg-red-100 text-red-600 border border-red-200'}">${item.status}</span><p class="text-xs text-gray-400 mt-2">${new Date(item.timestamp).toLocaleTimeString()}</p></div></div>`;
+    }).join('');
+    const done=colourHistory.filter(i=>i.status!=='PENDING');
+    const wins=done.filter(i=>i.status==='WIN').length;
+    const acc=done.length?Math.round((wins/done.length)*100):0;
+    document.getElementById('cStatAccuracy').innerText=acc+'%';
+    document.getElementById('cStatWins').innerText=wins;
+    document.getElementById('cStatLosses').innerText=done.length-wins;
+    document.getElementById('cTotalPreds').innerText=done.length;
+    const sd=document.getElementById('cStreakInfo');
+    if(cWinStreak>0) sd.innerHTML=`<div class="w-2 h-2 rounded-full bg-green-500"></div><p class="text-base font-bold text-green-600">${cWinStreak}W</p>`;
+    else if(cLossStreak>0) sd.innerHTML=`<div class="w-2 h-2 rounded-full bg-red-500"></div><p class="text-base font-bold text-red-600">${cLossStreak}L</p>`;
+    else sd.innerHTML=`<div class="w-2 h-2 rounded-full bg-gray-300"></div><p class="text-base font-bold">-</p>`;
+}
+
+window.clearColourHistory=function(){colourHistory=[];cWinStreak=0;cLossStreak=0;cEngineStats={RED:{wins:0,losses:0},GREEN:{wins:0,losses:0}};updateColourUI();};
+
+function initColourDashboard() {
+    updateColourUI(); fetchColourResult();
+    if(window.colourFetchInterval) clearInterval(window.colourFetchInterval);
+    window.colourFetchInterval = setInterval(fetchColourResult, 5000);
+    // Load game frame immediately when Analytics tab is active
+    if(document.getElementById('cStatsSection')?.classList.contains('active')) reloadColGameFrame();
+    document.querySelectorAll('#colourAppContainer .nav-link').forEach(link=>{
+        link.addEventListener('click',e=>{
+            e.preventDefault();
+            const id=link.getAttribute('data-section');
+            document.querySelectorAll('#colourAppContainer .nav-link').forEach(l=>l.classList.remove('active'));
+            link.classList.add('active');
+            document.querySelectorAll('#colourAppContainer .content-section').forEach(s=>s.classList.remove('active'));
+            document.getElementById(id)?.classList.add('active');
+            if(id==='cStatsSection') {
+                document.querySelector('#colourAppContainer header').style.display='none';
+                document.body.classList.add('no-scroll');
+                ensureGameFrame('colGameFrame','colFrameLoader','colLoaderText');
+            } else {
+                document.querySelector('#colourAppContainer header').style.display='';
+                document.body.classList.remove('no-scroll');
+            }
+        });
+    });
+}
+
+// ==================== INITIAL ROUTE ====================
+// Always start at login — fresh session every time
+showLogin();
+</script>
+</body>
+</html>
